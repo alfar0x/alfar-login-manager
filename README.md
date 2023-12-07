@@ -7,7 +7,7 @@ This tool adds the following features to all Discord pages:
 
 ![screenshot](./img/screenshot.png)
 
-## Build (or use builded build.zip)
+## Build
 1. Ensure Node.js is installed on your system
 1. Execute the command `npm run build` to build the project
 1. Create a zip file containing the generated `build` folder
