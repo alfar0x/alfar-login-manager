@@ -89,7 +89,6 @@ const initPanel = () => {
     });
     return buttonEl;
   };
-
   const createMovableEdge = (moveEl) => {
     const edgeEl = document.createElement("div");
     edgeEl.classList.add("tm_movable_edge");
@@ -107,7 +106,15 @@ const initPanel = () => {
     document.addEventListener("mousemove", (e) => {
       if (isDragging) {
         const y = e.clientY - offsetY;
-        moveEl.style.top = `${y}px`;
+
+        // Ensure the top position stays within the window boundaries
+        const windowHeight = window.innerHeight;
+        const moveElHeight = moveEl.clientHeight;
+
+        const minTop = 0;
+        const maxTop = windowHeight - moveElHeight;
+
+        moveEl.style.top = `${Math.max(minTop, Math.min(y, maxTop))}px`;
       }
     });
 
