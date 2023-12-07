@@ -1,3 +1,7 @@
+#app-mount {
+  height: 95vh !important;
+}
+
 #token-manager {
   padding: 10px;
 }
