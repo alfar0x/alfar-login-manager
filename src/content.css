@@ -1,0 +1,72 @@
+#token-manager {
+  padding: 10px;
+}
+
+.tm_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 80px;
+}
+
+.tm_manager_box {
+  display: flex;
+  width: fit-content;
+  gap: 20px;
+}
+
+.tm_input {
+  border: 1px solid transparent;
+  color: #fff;
+  margin: 0 auto;
+  padding: 3px 7px;
+  border-radius: 7px;
+  transition: all 0.3s;
+  min-width: 200px;
+  background-color: #070814;
+}
+
+.tm_input::placeholder {
+  text-transform: uppercase;
+}
+
+.tm_input:focus {
+  border-color: #5865f2 !important;
+}
+
+.tm_button {
+  border-radius: 7px;
+  border: 3px solid #5865f2;
+  background-color: #5865f2;
+  color: #fff;
+  margin: 0;
+  padding: 5px 15px;
+  width: 100%;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tm_button:hover {
+  background-color: #4752c4;
+  border-color: #4752c4;
+  color: #fff;
+}
+
+.tm_border_success {
+  border-color: #2a9d8f !important;
+}
+
+.tm_border_error {
+  border-color: #e63946 !important;
+}
+
+.tm_contact_box {
+  display: flex;
+  align-items: center;
+}
+
+.tm_contact_box_link {
+  text-decoration: none;
+  color: #fff;
+}

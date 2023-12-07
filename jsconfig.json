@@ -1,0 +1,10 @@
+{
+  "exclude": ["node_modules", "**/node_modules", "build"],
+  "include": ["src"],
+
+  "compilerOptions": {
+    "checkJs": true,
+    "module": "CommonJS",
+    "target": "es2021"
+  },
+}
