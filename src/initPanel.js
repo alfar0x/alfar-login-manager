@@ -90,18 +90,6 @@ const initPanel = () => {
     return buttonEl;
   };
 
-  const createContactBox = () => {
-    const contactBoxEl = document.createElement("div");
-    contactBoxEl.classList.add("tm_contact_box");
-    const contactBoxLinkEl = document.createElement("a");
-    contactBoxLinkEl.classList.add("tm_contact_box_link");
-    contactBoxLinkEl.setAttribute("href", "https://t.me/+FozX3VZA0RIyNWY6");
-    contactBoxLinkEl.setAttribute("target", "_blank");
-    contactBoxLinkEl.innerText = "@alfar";
-    contactBoxEl.appendChild(contactBoxLinkEl);
-    return contactBoxEl;
-  };
-
   const createMovableEdge = (moveEl) => {
     const edgeEl = document.createElement("div");
     edgeEl.classList.add("tm_movable_edge");
@@ -144,7 +132,6 @@ const initPanel = () => {
   const tokenManagerContainerEl = document.createElement("div");
   tokenManagerContainerEl.classList.add("tm_container");
 
-  // tokenManagerContainerEl.appendChild(createContactBox());
   tokenManagerContainerEl.appendChild(createTokenInput());
   tokenManagerContainerEl.appendChild(createCopyTokenButton());
 

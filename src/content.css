@@ -16,7 +16,7 @@
 .tm_movable_edge {
   cursor: grab;
   height: 100%;
-  color: #fff
+  color: #fff;
 }
 
 .tm_container {
@@ -24,12 +24,13 @@
   justify-content: space-between;
   gap: 10px;
   width: fit-content;
+  overflow-x: hidden;
+  transition: all 0.2s;
+  width: 300px;
 }
 
 .tm_hidden {
-  visibility: hidden;
-  display: none;
-  transition: all 0.2s;
+  width: 0;
 }
 
 .tm_input {
@@ -39,9 +40,9 @@
   padding: 3px 7px;
   border-radius: 7px;
   transition: all 0.3s;
-  min-width: 250px;
-  background-color: #2C2D37;
+  background-color: #2c2d37;
   color: #d7d7d7;
+  width: 100%;
 }
 
 .tm_input::placeholder {
@@ -59,7 +60,7 @@
   color: #fff;
   margin: 0;
   padding: 5px 15px;
-  width: 100%;
+  width: fit-content;
   text-transform: uppercase;
   transition: all 0.3s;
   cursor: pointer;
