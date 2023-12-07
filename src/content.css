@@ -1,21 +1,35 @@
-#app-mount {
-  height: 95vh !important;
+#token-manager {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 100000;
+  background-color: #424549;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  gap: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  align-items: center;
 }
 
-#token-manager {
-  padding: 10px;
+.tm_movable_edge {
+  cursor: grab;
+  height: 100%;
+  color: #fff
 }
 
 .tm_container {
   display: flex;
   justify-content: space-between;
-  padding: 0 80px;
+  gap: 10px;
+  width: fit-content;
 }
 
-.tm_manager_box {
-  display: flex;
-  width: fit-content;
-  gap: 20px;
+.tm_hidden {
+  visibility: hidden;
+  display: none;
+  transition: all 0.2s;
 }
 
 .tm_input {
@@ -25,8 +39,9 @@
   padding: 3px 7px;
   border-radius: 7px;
   transition: all 0.3s;
-  min-width: 200px;
-  background-color: #070814;
+  min-width: 250px;
+  background-color: #2C2D37;
+  color: #d7d7d7;
 }
 
 .tm_input::placeholder {

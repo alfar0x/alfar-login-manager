@@ -45,7 +45,10 @@ const initPanel = () => {
   };
 
   const checkIsToken = (/** @type {any} */ value) =>
-    value && typeof value === "string" && value.length === 72;
+    value &&
+    typeof value === "string" &&
+    value.length > 60 &&
+    value.length < 80;
 
   const createTokenInput = () => {
     const inputEl = document.createElement("input");
@@ -87,14 +90,6 @@ const initPanel = () => {
     return buttonEl;
   };
 
-  const createTokenManagerBox = () => {
-    const tokenManagerBoxEl = document.createElement("div");
-    tokenManagerBoxEl.classList.add("tm_manager_box");
-    tokenManagerBoxEl.appendChild(createTokenInput());
-    tokenManagerBoxEl.appendChild(createCopyTokenButton());
-    return tokenManagerBoxEl;
-  };
-
   const createContactBox = () => {
     const contactBoxEl = document.createElement("div");
     contactBoxEl.classList.add("tm_contact_box");
@@ -105,6 +100,35 @@ const initPanel = () => {
     contactBoxLinkEl.innerText = "@alfar";
     contactBoxEl.appendChild(contactBoxLinkEl);
     return contactBoxEl;
+  };
+
+  const createMovableEdge = (moveEl) => {
+    const edgeEl = document.createElement("div");
+    edgeEl.classList.add("tm_movable_edge");
+    edgeEl.innerText = "####";
+
+    let isDragging = false;
+    let offsetY;
+
+    edgeEl.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetY = e.clientY - moveEl.getBoundingClientRect().top;
+      moveEl.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        const y = e.clientY - offsetY;
+        moveEl.style.top = `${y}px`;
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      moveEl.style.cursor = "grab";
+    });
+
+    return edgeEl;
   };
 
   const appEl = document.querySelector("body");
@@ -120,11 +144,23 @@ const initPanel = () => {
   const tokenManagerContainerEl = document.createElement("div");
   tokenManagerContainerEl.classList.add("tm_container");
 
-  tokenManagerContainerEl.appendChild(createContactBox());
-  tokenManagerContainerEl.appendChild(createTokenManagerBox());
+  // tokenManagerContainerEl.appendChild(createContactBox());
+  tokenManagerContainerEl.appendChild(createTokenInput());
+  tokenManagerContainerEl.appendChild(createCopyTokenButton());
 
+  const toggleVisibilityButtonEl = document.createElement("button");
+  toggleVisibilityButtonEl.classList.add("tm_button");
+  toggleVisibilityButtonEl.innerText = ">";
+  toggleVisibilityButtonEl.addEventListener("click", () => {
+    const isHidden = tokenManagerContainerEl.classList.toggle("tm_hidden");
+    toggleVisibilityButtonEl.innerText = isHidden ? "<" : ">";
+  });
+
+  tokenManagerEl.appendChild(createMovableEdge(tokenManagerEl));
   tokenManagerEl.appendChild(tokenManagerContainerEl);
+  tokenManagerEl.appendChild(toggleVisibilityButtonEl);
 
   appEl.insertBefore(tokenManagerEl, appEl.firstChild);
 };
+
 export default initPanel;

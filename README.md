@@ -7,6 +7,11 @@ This tool adds the following features to all Discord pages:
 
 ![screenshot](./img/screenshot.png)
 
+## Build
+1. Ensure Node.js is installed on your system
+1. Execute the command `npm run build` to build the project
+1. Create a zip file containing the generated `build` folder
+
 ## Chrome Installation
 
 1. Navigate to your extensions folder.
@@ -18,6 +23,6 @@ This tool adds the following features to all Discord pages:
 
 1. Go to Discover -> Extensions settings.
 2. Use the "Upload extension" button.
-3. Select the extension build.zip file.
+3. Select the extension `build.zip` file.
 
 Explore more scripts on our Telegram channel [alfar](https://t.me/+FozX3VZA0RIyNWY6).
