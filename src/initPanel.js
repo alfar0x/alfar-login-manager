@@ -47,8 +47,8 @@ const initPanel = () => {
   const checkIsToken = (/** @type {any} */ value) =>
     value &&
     typeof value === "string" &&
-    value.length > 60 &&
-    value.length < 80;
+    value.length > 65 &&
+    value.length < 75;
 
   const highlightElement = (
     /** @type {HTMLElement} */ element,
@@ -100,23 +100,45 @@ const initPanel = () => {
   const createTokenInput = () => {
     const inputEl = document.createElement("input");
     inputEl.classList.add("tm_input");
-    inputEl.placeholder = "login token";
+    inputEl.placeholder = "paste login token";
+
+    const tryLogin = (value) => {
+      if (!checkIsToken(value)) {
+        console.error(`${value} is not a token`);
+        highlightElement(inputEl, "error");
+        return false;
+      }
+
+      login(value);
+      highlightElement(inputEl, "success");
+
+      return true;
+    };
+
+    inputEl.addEventListener("paste", (event) => {
+      // @ts-ignore
+      const clipboardData = event.clipboardData || window.clipboardData;
+
+      const value = clipboardData?.getData("text") || "";
+
+      const isSuccess = tryLogin(value);
+
+      inputEl.value = isSuccess ? "" : inputEl.value + value;
+    });
+
     inputEl.addEventListener("keyup", (event) => {
       if (event.key !== "Enter") return;
       inputEl.blur();
     });
+
     inputEl.addEventListener("blur", (event) => {
       // @ts-ignore
       const { value } = event.target || {};
       inputEl.value = "";
-      if (!checkIsToken(value)) {
-        console.error(`${value} is not a token`);
-        highlightElement(inputEl, "error");
-        return;
-      }
-      login(value);
-      highlightElement(inputEl, "success");
+
+      tryLogin(value);
     });
+
     return inputEl;
   };
 
