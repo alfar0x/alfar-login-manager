@@ -16,7 +16,7 @@
 .tm_movable_edge {
   cursor: grab;
   height: 100%;
-  color: #fff;
+  color: #A1A2A4;
 }
 
 .tm_container {
@@ -51,6 +51,15 @@
 
 .tm_input:focus {
   border-color: #5865f2;
+}
+
+.tm_input:hover:not(:focus):not(:disabled) {
+  border-color: #39429D;
+}
+
+.tm_input:disabled {
+  background-color: #25262f;
+  color: #b7b7b7;
 }
 
 .tm_button {
