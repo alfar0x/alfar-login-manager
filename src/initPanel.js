@@ -105,9 +105,6 @@ const initPanel = () => {
       if (event.key !== "Enter") return;
       inputEl.blur();
     });
-    inputEl.addEventListener("paste", (event) => {
-      inputEl.blur();
-    });
     inputEl.addEventListener("blur", (event) => {
       // @ts-ignore
       const { value } = event.target || {};
