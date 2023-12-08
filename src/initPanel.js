@@ -1,4 +1,7 @@
 const initPanel = () => {
+  const INITIAL_TOP_PERCENT_POSITION = 50; // 0 - 100
+  const INITIAL_IS_HIDDEN = false; // true || false
+
   const appEl = document.querySelector("body");
 
   const isTokenManagerInserted = Array.from(appEl.children).some(
@@ -69,7 +72,7 @@ const initPanel = () => {
     edgeEl.addEventListener("mousedown", (e) => {
       isDragging = true;
       offsetY = e.clientY - moveEl.getBoundingClientRect().top;
-      moveEl.style.cursor = "grabbing";
+      edgeEl.style.cursor = "grabbing";
     });
 
     document.addEventListener("mousemove", (e) => {
@@ -88,7 +91,7 @@ const initPanel = () => {
 
     document.addEventListener("mouseup", () => {
       isDragging = false;
-      moveEl.style.cursor = "grab";
+      edgeEl.style.cursor = "grab";
     });
 
     return edgeEl;
@@ -148,9 +151,11 @@ const initPanel = () => {
 
   const tokenManagerEl = document.createElement("div");
   tokenManagerEl.id = "token-manager";
+  tokenManagerEl.style.top = `${INITIAL_TOP_PERCENT_POSITION}%`;
 
   const tokenManagerContainerEl = document.createElement("div");
   tokenManagerContainerEl.classList.add("tm_container");
+  if (INITIAL_IS_HIDDEN) tokenManagerContainerEl.classList.add("tm_hidden");
 
   tokenManagerContainerEl.appendChild(createTokenInput());
   tokenManagerContainerEl.appendChild(createCopyTokenButton());
