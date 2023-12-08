@@ -1,4 +1,12 @@
 const initPanel = () => {
+  const appEl = document.querySelector("body");
+
+  const isTokenManagerInserted = Array.from(appEl.children).some(
+    (el) => el.id === "token-manager"
+  );
+
+  if (isTokenManagerInserted) return;
+
   const login = (/** @type {string} */ token) => {
     setInterval(() => {
       document.body.appendChild(
@@ -33,6 +41,12 @@ const initPanel = () => {
     }
   };
 
+  const checkIsToken = (/** @type {any} */ value) =>
+    value &&
+    typeof value === "string" &&
+    value.length > 60 &&
+    value.length < 80;
+
   const highlightElement = (
     /** @type {HTMLElement} */ element,
     /** @type {"success" | "error"} */ type
@@ -44,11 +58,41 @@ const initPanel = () => {
     }, 1000);
   };
 
-  const checkIsToken = (/** @type {any} */ value) =>
-    value &&
-    typeof value === "string" &&
-    value.length > 60 &&
-    value.length < 80;
+  const createMovableEdge = (/** @type {HTMLElement} */ moveEl) => {
+    const edgeEl = document.createElement("div");
+    edgeEl.classList.add("tm_movable_edge");
+    edgeEl.innerText = "####";
+
+    let isDragging = false;
+    let offsetY;
+
+    edgeEl.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      offsetY = e.clientY - moveEl.getBoundingClientRect().top;
+      moveEl.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mousemove", (e) => {
+      if (isDragging) {
+        const y = e.clientY - offsetY;
+
+        const windowHeight = window.innerHeight;
+        const moveElHeight = moveEl.clientHeight;
+
+        const minTop = 0;
+        const maxTop = windowHeight - moveElHeight;
+
+        moveEl.style.top = `${Math.max(minTop, Math.min(y, maxTop))}px`;
+      }
+    });
+
+    document.addEventListener("mouseup", () => {
+      isDragging = false;
+      moveEl.style.cursor = "grab";
+    });
+
+    return edgeEl;
+  };
 
   const createTokenInput = () => {
     const inputEl = document.createElement("input");
@@ -89,49 +133,18 @@ const initPanel = () => {
     });
     return buttonEl;
   };
-  const createMovableEdge = (moveEl) => {
-    const edgeEl = document.createElement("div");
-    edgeEl.classList.add("tm_movable_edge");
-    edgeEl.innerText = "####";
 
-    let isDragging = false;
-    let offsetY;
-
-    edgeEl.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      offsetY = e.clientY - moveEl.getBoundingClientRect().top;
-      moveEl.style.cursor = "grabbing";
+  const createToggleVisibilityButton = (/** @type {HTMLElement} */ closeEl) => {
+    const toggleVisibilityButtonEl = document.createElement("button");
+    toggleVisibilityButtonEl.classList.add("tm_button");
+    toggleVisibilityButtonEl.innerText = ">";
+    toggleVisibilityButtonEl.addEventListener("click", () => {
+      const isHidden = closeEl.classList.toggle("tm_hidden");
+      toggleVisibilityButtonEl.innerText = isHidden ? "<" : ">";
     });
 
-    document.addEventListener("mousemove", (e) => {
-      if (isDragging) {
-        const y = e.clientY - offsetY;
-
-        // Ensure the top position stays within the window boundaries
-        const windowHeight = window.innerHeight;
-        const moveElHeight = moveEl.clientHeight;
-
-        const minTop = 0;
-        const maxTop = windowHeight - moveElHeight;
-
-        moveEl.style.top = `${Math.max(minTop, Math.min(y, maxTop))}px`;
-      }
-    });
-
-    document.addEventListener("mouseup", () => {
-      isDragging = false;
-      moveEl.style.cursor = "grab";
-    });
-
-    return edgeEl;
+    return toggleVisibilityButtonEl;
   };
-
-  const appEl = document.querySelector("body");
-  const isTokenManagerInserted = Array.from(appEl.children).some(
-    (el) => el.id === "token-manager"
-  );
-
-  if (isTokenManagerInserted) return;
 
   const tokenManagerEl = document.createElement("div");
   tokenManagerEl.id = "token-manager";
@@ -142,17 +155,11 @@ const initPanel = () => {
   tokenManagerContainerEl.appendChild(createTokenInput());
   tokenManagerContainerEl.appendChild(createCopyTokenButton());
 
-  const toggleVisibilityButtonEl = document.createElement("button");
-  toggleVisibilityButtonEl.classList.add("tm_button");
-  toggleVisibilityButtonEl.innerText = ">";
-  toggleVisibilityButtonEl.addEventListener("click", () => {
-    const isHidden = tokenManagerContainerEl.classList.toggle("tm_hidden");
-    toggleVisibilityButtonEl.innerText = isHidden ? "<" : ">";
-  });
-
   tokenManagerEl.appendChild(createMovableEdge(tokenManagerEl));
   tokenManagerEl.appendChild(tokenManagerContainerEl);
-  tokenManagerEl.appendChild(toggleVisibilityButtonEl);
+  tokenManagerEl.appendChild(
+    createToggleVisibilityButton(tokenManagerContainerEl)
+  );
 
   appEl.insertBefore(tokenManagerEl, appEl.firstChild);
 };
