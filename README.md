@@ -23,6 +23,6 @@ This tool adds the following features to all Discord pages:
 1. Create a zip file containing the generated `build` folder
 1. Go to Ads power -> Discover -> Extensions settings.
 1. Use the "Upload extension" button.
-1. Select the extension яшз file.
+1. Select the extension zip file.
 
 Explore more scripts on our Telegram channel [alfar](https://t.me/+FozX3VZA0RIyNWY6).
