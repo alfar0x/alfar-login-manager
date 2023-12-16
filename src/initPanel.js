@@ -1,6 +1,43 @@
-const initPanel = () => {
-  const INITIAL_TOP_PERCENT_POSITION = 50; // 0 - 100
-  const INITIAL_IS_HIDDEN = false; // true || false
+const initPanel = async () => {
+  const STORAGE_KEY = "dtm-config";
+  const config = {
+    topPosition: "50%",
+    isHidden: false,
+  };
+
+  const getLocalStoragePropertyDescriptor = () => {
+    const iframe = document.createElement("iframe");
+    document.head.append(iframe);
+    const pd = Object.getOwnPropertyDescriptor(
+      iframe.contentWindow,
+      "localStorage"
+    );
+    iframe.remove();
+    return pd;
+  };
+
+  const localStorage = getLocalStoragePropertyDescriptor().get.call(window);
+
+  const getOrUpdateConfig = () => {
+    const storageConfig = localStorage.getItem(STORAGE_KEY);
+
+    if (!storageConfig) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+      return;
+    }
+
+    try {
+      const object = JSON.parse(storageConfig);
+      if (typeof object.topPosition === "string") {
+        config.topPosition = object.topPosition;
+      }
+      if (typeof object.isHidden === "boolean") {
+        config.isHidden = object.isHidden;
+      }
+    } catch {}
+  };
+
+  getOrUpdateConfig();
 
   const appEl = document.querySelector("body");
 
@@ -68,6 +105,7 @@ const initPanel = () => {
 
     let isDragging = false;
     let offsetY;
+    let topPosition = config.topPosition;
 
     edgeEl.addEventListener("mousedown", (e) => {
       isDragging = true;
@@ -85,13 +123,16 @@ const initPanel = () => {
         const minTop = 0;
         const maxTop = windowHeight - moveElHeight;
 
-        moveEl.style.top = `${Math.max(minTop, Math.min(y, maxTop))}px`;
+        topPosition = `${Math.max(minTop, Math.min(y, maxTop))}px`;
+        moveEl.style.top = topPosition;
       }
     });
 
     document.addEventListener("mouseup", () => {
       isDragging = false;
       edgeEl.style.cursor = "grab";
+      config.topPosition = topPosition;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
     });
 
     return edgeEl;
@@ -145,10 +186,12 @@ const initPanel = () => {
   const createToggleVisibilityButton = (/** @type {HTMLElement} */ closeEl) => {
     const toggleVisibilityButtonEl = document.createElement("button");
     toggleVisibilityButtonEl.classList.add("tm_button");
-    toggleVisibilityButtonEl.innerText = ">";
+    toggleVisibilityButtonEl.innerText = config.isHidden ? "<" : ">";
     toggleVisibilityButtonEl.addEventListener("click", () => {
       const isHidden = closeEl.classList.toggle("tm_hidden");
       toggleVisibilityButtonEl.innerText = isHidden ? "<" : ">";
+      config.isHidden = isHidden;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
     });
 
     return toggleVisibilityButtonEl;
@@ -156,11 +199,11 @@ const initPanel = () => {
 
   const tokenManagerEl = document.createElement("div");
   tokenManagerEl.id = "token-manager";
-  tokenManagerEl.style.top = `${INITIAL_TOP_PERCENT_POSITION}%`;
+  tokenManagerEl.style.top = config.topPosition;
 
   const tokenManagerContainerEl = document.createElement("div");
   tokenManagerContainerEl.classList.add("tm_container");
-  if (INITIAL_IS_HIDDEN) tokenManagerContainerEl.classList.add("tm_hidden");
+  if (config.isHidden) tokenManagerContainerEl.classList.add("tm_hidden");
 
   tokenManagerContainerEl.appendChild(createTokenInput());
   tokenManagerContainerEl.appendChild(createCopyTokenButton());
