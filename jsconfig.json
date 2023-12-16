@@ -5,6 +5,7 @@
   "compilerOptions": {
     "checkJs": true,
     "module": "CommonJS",
-    "target": "es2021"
+    "target": "es2021",
+    "types": ["chrome"]
   },
 }

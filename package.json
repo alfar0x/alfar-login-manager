@@ -9,6 +9,7 @@
     "update": "git reset --hard HEAD && git pull"
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.254",
     "copy-webpack-plugin": "^6.4.1",
     "css-loader": "^6.8.1",
     "file-loader": "^6.2.0",
