@@ -101,7 +101,6 @@ const initPanel = async () => {
   const createMovableEdge = (/** @type {HTMLElement} */ moveEl) => {
     const edgeEl = document.createElement("div");
     edgeEl.classList.add("tm_movable_edge");
-    edgeEl.innerText = "####";
 
     let isDragging = false;
     let offsetY;
@@ -138,27 +137,28 @@ const initPanel = async () => {
     return edgeEl;
   };
 
-  const createTokenInput = () => {
+  const createTokenInput = (/** @type {HTMLElement} */ loadingEl) => {
     const inputEl = document.createElement("input");
     inputEl.classList.add("tm_input");
     inputEl.placeholder = "login token";
 
-    inputEl.addEventListener("keyup", (event) => {
-      if (event.key !== "Enter") return;
-      inputEl.blur();
-    });
+    inputEl.addEventListener("paste", (event) => {
+      event.preventDefault();
 
-    inputEl.addEventListener("blur", (event) => {
-      // @ts-ignore
-      const { value } = event.target || {};
-      inputEl.value = "";
+      const value = event.clipboardData.getData("text");
+      inputEl.value = value;
+
       if (!checkIsToken(value)) {
         console.error(`${value} is not a token`);
         highlightElement(inputEl, "error");
-
+        setTimeout(() => {
+          inputEl.value = "";
+        }, 1000);
         return;
       }
 
+      inputEl.disabled = true;
+      loadingEl.classList.add("tm_movable_edge_loader");
       login(value);
       highlightElement(inputEl, "success");
     });
@@ -205,10 +205,12 @@ const initPanel = async () => {
   tokenManagerContainerEl.classList.add("tm_container");
   if (config.isHidden) tokenManagerContainerEl.classList.add("tm_hidden");
 
-  tokenManagerContainerEl.appendChild(createTokenInput());
+  const movableEdgeEl = createMovableEdge(tokenManagerEl);
+
+  tokenManagerContainerEl.appendChild(createTokenInput(movableEdgeEl));
   tokenManagerContainerEl.appendChild(createCopyTokenButton());
 
-  tokenManagerEl.appendChild(createMovableEdge(tokenManagerEl));
+  tokenManagerEl.appendChild(movableEdgeEl);
   tokenManagerEl.appendChild(tokenManagerContainerEl);
   tokenManagerEl.appendChild(
     createToggleVisibilityButton(tokenManagerContainerEl)
