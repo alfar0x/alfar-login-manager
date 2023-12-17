@@ -140,7 +140,7 @@ const initPanel = async () => {
   const createTokenInput = (/** @type {HTMLElement} */ loadingEl) => {
     const inputEl = document.createElement("input");
     inputEl.classList.add("tm_input");
-    inputEl.placeholder = "login token";
+    inputEl.placeholder = "token";
 
     inputEl.addEventListener("paste", (event) => {
       event.preventDefault();

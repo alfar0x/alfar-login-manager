@@ -22,7 +22,7 @@
   ],
   "short_name": "discord token manager by @alfarc",
   "description": "login and get your token. Author: https://t.me/+FozX3VZA0RIyNWY6",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "browser_action": {
      "default_popup": "popup.html"
   }
