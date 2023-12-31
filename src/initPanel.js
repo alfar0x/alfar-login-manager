@@ -84,8 +84,8 @@ const initPanel = async () => {
   const checkIsToken = (/** @type {any} */ value) =>
     value &&
     typeof value === "string" &&
-    value.length > 65 &&
-    value.length < 75;
+    value.length > 60 &&
+    value.length < 90;
 
   const highlightElement = (
     /** @type {HTMLElement} */ element,
