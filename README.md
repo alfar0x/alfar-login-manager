@@ -20,9 +20,14 @@ This tool adds the following features to all Discord pages:
 
 ## Ads Power Installation
 
-1. Create a zip file containing the generated `build` folder
+1. Create a zip/rar file containing the generated `build` folder
 1. Go to Ads power -> Discover -> Extensions settings.
 1. Use the "Upload extension" button.
-1. Select the extension zip file.
+1. Select the extension `build.zip` or `build.rar` file.
+
+## Using
+
+1. Go to discord.com
+1. Use login/copy token panel
 
 Explore more scripts on our Telegram channel [alfar](https://t.me/+FozX3VZA0RIyNWY6).
