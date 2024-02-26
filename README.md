@@ -1,4 +1,4 @@
-# Discord Token Manager
+# Login Manager
 
 This tool adds the following features to all Discord and Twitter pages:
 
