@@ -3,9 +3,15 @@
 const SizePlugin = require("size-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const PATHS = require("./paths");
+const path = require("path");
+
+const PATHS = {
+  src: path.resolve(__dirname, "./src"),
+  build: path.resolve(__dirname, "./build"),
+};
 
 const common = {
+  entry: { content: PATHS.src + "/content.js" },
   output: { path: PATHS.build, filename: "[name].js" },
   devtool: "source-map",
   stats: { all: false, errors: true, builtAt: true },

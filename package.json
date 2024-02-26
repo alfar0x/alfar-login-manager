@@ -4,8 +4,8 @@
   "description": "My Chrome Extension",
   "author": "https://t.me/+FozX3VZA0RIyNWY6",
   "scripts": {
-    "watch": "node ./node_modules/webpack/bin/webpack.js --mode=development --watch --config config/webpack.config.js",
-    "build": "node ./node_modules/webpack/bin/webpack.js --mode=production --config config/webpack.config.js",
+    "watch": "node ./node_modules/webpack/bin/webpack.js --mode=development --watch --config webpack.config.js",
+    "build": "node ./node_modules/webpack/bin/webpack.js --mode=production --config webpack.config.js",
     "update": "git reset --hard HEAD && git pull"
   },
   "devDependencies": {
