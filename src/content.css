@@ -79,6 +79,7 @@
 .lm_input::placeholder {
   text-transform: uppercase;
   font-weight: 500;
+  font-size: 12px
 }
 
 .lm_input:focus {

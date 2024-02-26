@@ -1,8 +1,8 @@
 # Discord Token Manager
 
-This tool adds the following features to all Discord pages:
+This tool adds the following features to all Discord and Twitter pages:
 
-1. Input field for entering your Discord token, allowing you to log in to your Discord account.
+1. Input field for entering your token, allowing you to log in to your account.
 1. Button that copies the current account token to your clipboard.
 
 ![screenshot](./img/screenshot.png)
@@ -27,7 +27,7 @@ This tool adds the following features to all Discord pages:
 
 ## Using
 
-1. Go to discord.com
+1. Go to discord.com or twitter.com
 1. Use login/copy token panel
 
 Explore more scripts on our Telegram channel [alfar](https://t.me/+FozX3VZA0RIyNWY6).
