@@ -3,7 +3,14 @@
     {
       "js": ["content.js"],
       "css": ["content.css"],
-      "matches": ["http://discord.com/*", "https://discord.com/*"],
+      "matches": [
+        "http://discord.com/*",
+        "https://discord.com/*",
+        "http://x.com/*",
+        "https://x.com/*",
+        "http://twitter.com/*",
+        "https://twitter.com/*"
+      ],
       "run_at": "document_start"
     }
   ],
@@ -14,16 +21,22 @@
     "128": "icons/icon128.png"
   },
   "manifest_version": 2,
-  "name": "alfar-dtm",
+  "name": "alfar-lm",
   "permissions": [
     "http://discord.com/*",
     "https://discord.com/*",
-    "tabs"
+    "http://x.com/*",
+    "https://x.com/*",
+    "http://twitter.com/*",
+    "https://twitter.com/*",
+    "tabs",
+    "cookies",
+    "storage"
   ],
-  "short_name": "discord token manager by @alfarc",
-  "description": "login and get your token. Author: https://t.me/+FozX3VZA0RIyNWY6",
+  "short_name": "login manager by @alfarc",
+  "description": "author: https://t.me/+FozX3VZA0RIyNWY6",
   "version": "0.0.4",
   "browser_action": {
-     "default_popup": "popup.html"
+    "default_popup": "popup.html"
   }
 }

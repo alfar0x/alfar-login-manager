@@ -1,7 +1,7 @@
 {
-  "name": "discord-token-manager",
+  "name": "login-token-manager",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "login and get your token on discord",
   "author": "https://t.me/+FozX3VZA0RIyNWY6",
   "scripts": {
     "watch": "node ./node_modules/webpack/bin/webpack.js --mode=development --watch --config webpack.config.js",
