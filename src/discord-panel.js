@@ -1,4 +1,44 @@
-const initPanel = async () => {
+const discordPanel = async () => {
+  const onSubmit = (/** @type {string} */ token) => {
+    setInterval(() => {
+      document.body.appendChild(
+        document.createElement(`iframe`)
+      ).contentWindow.localStorage.token = `"${token}"`;
+    }, 50);
+    setTimeout(() => {
+      location.reload();
+    }, 2500);
+  };
+
+  const onCopy = () => {
+    try {
+      // @ts-ignore
+      return (window.webpackChunkdiscord_app.push([
+        [""],
+        {},
+        (e) => {
+          // @ts-ignore
+          m = [];
+          // @ts-ignore
+          for (let c in e.c) m.push(e.c[c]);
+        },
+      ]),
+      // @ts-ignore
+      m)
+        .find((m) => m?.exports?.default?.getToken !== void 0)
+        .exports.default.getToken();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const onValidate = (/** @type {any} */ token) =>
+    token &&
+    typeof token === "string" &&
+    token.length > 10 &&
+    token.length < 200;
+
   const STORAGE_KEY = "dtm-config";
   const config = {
     topPosition: "50%",
@@ -46,46 +86,6 @@ const initPanel = async () => {
   );
 
   if (isTokenManagerInserted) return;
-
-  const login = (/** @type {string} */ token) => {
-    setInterval(() => {
-      document.body.appendChild(
-        document.createElement(`iframe`)
-      ).contentWindow.localStorage.token = `"${token}"`;
-    }, 50);
-    setTimeout(() => {
-      location.reload();
-    }, 2500);
-  };
-
-  const getCurrentToken = () => {
-    try {
-      // @ts-ignore
-      return (window.webpackChunkdiscord_app.push([
-        [""],
-        {},
-        (e) => {
-          // @ts-ignore
-          m = [];
-          // @ts-ignore
-          for (let c in e.c) m.push(e.c[c]);
-        },
-      ]),
-      // @ts-ignore
-      m)
-        .find((m) => m?.exports?.default?.getToken !== void 0)
-        .exports.default.getToken();
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
-
-  const checkIsToken = (/** @type {any} */ value) =>
-    value &&
-    typeof value === "string" &&
-    value.length > 10 &&
-    value.length < 200;
 
   const highlightElement = (
     /** @type {HTMLElement} */ element,
@@ -148,7 +148,7 @@ const initPanel = async () => {
       const value = event.clipboardData.getData("text");
       inputEl.value = value;
 
-      if (!checkIsToken(value)) {
+      if (!onValidate(value)) {
         console.error(`${value} is not a token`);
         highlightElement(inputEl, "error");
         setTimeout(() => {
@@ -159,7 +159,7 @@ const initPanel = async () => {
 
       inputEl.disabled = true;
       loadingEl.classList.add("tm_movable_edge_loader");
-      login(value);
+      onSubmit(value);
       highlightElement(inputEl, "success");
     });
 
@@ -171,8 +171,8 @@ const initPanel = async () => {
     buttonEl.classList.add("tm_button");
     buttonEl.innerText = "copy";
     buttonEl.addEventListener("click", () => {
-      const value = getCurrentToken();
-      if (!checkIsToken(value)) {
+      const value = onCopy();
+      if (!onValidate(value)) {
         console.error(`${value} is not a token`);
         highlightElement(buttonEl, "error");
         return;
@@ -219,4 +219,4 @@ const initPanel = async () => {
   appEl.insertBefore(tokenManagerEl, appEl.firstChild);
 };
 
-export default initPanel;
+export default discordPanel;

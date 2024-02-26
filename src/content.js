@@ -1,5 +1,5 @@
 import "./content.css";
-import initPanel from "./initPanel";
+import discordPanel from "./discord-panel";
 
 function inject(recursive = false) {
   const isInjectable = ["complete", "interactive"].includes(
@@ -9,7 +9,7 @@ function inject(recursive = false) {
   if (isInjectable) {
     const scriptEl = document.createElement("script");
     scriptEl.setAttribute("data-source", "token manager"),
-      (scriptEl.innerHTML = `(${initPanel.toString()})();`);
+      (scriptEl.innerHTML = `(${discordPanel.toString()})();`);
     setTimeout(() => document.body.appendChild(scriptEl), 1000);
   } else {
     document.onreadystatechange = function () {
