@@ -1,11 +1,16 @@
 import "./content.css";
 import discordPanel from "./discord-panel";
+// import twitterPanel from "./twitter-panel";
 
 const websites = [
   {
     hostnames: ["discord.com"],
     func: discordPanel,
   },
+  // {
+  //   hostnames: ["x.com", "twitter.com"],
+  //   func: twitterPanel,
+  // },
 ];
 
 function inject(recursive = false) {

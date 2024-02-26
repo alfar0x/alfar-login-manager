@@ -39,7 +39,8 @@ const discordPanel = async () => {
     token.length > 10 &&
     token.length < 200;
 
-  const STORAGE_KEY = "dtm-config";
+  const STORAGE_KEY = "alfar-lm-config";
+  const MANAGER_ID = "alfar-lm";
   const config = {
     topPosition: "50%",
     isHidden: false,
@@ -82,7 +83,7 @@ const discordPanel = async () => {
   const appEl = document.querySelector("body");
 
   const isTokenManagerInserted = Array.from(appEl.children).some(
-    (el) => el.id === "token-manager"
+    (el) => el.id === MANAGER_ID
   );
 
   if (isTokenManagerInserted) return;
@@ -91,7 +92,7 @@ const discordPanel = async () => {
     /** @type {HTMLElement} */ element,
     /** @type {"success" | "error"} */ type
   ) => {
-    const className = `tm_border_${type}`;
+    const className = `lm_border_${type}`;
     element.classList.add(className);
     setTimeout(() => {
       element.classList.remove(className);
@@ -100,7 +101,7 @@ const discordPanel = async () => {
 
   const createMovableEdge = (/** @type {HTMLElement} */ moveEl) => {
     const edgeEl = document.createElement("div");
-    edgeEl.classList.add("tm_movable_edge");
+    edgeEl.classList.add("lm_movable_edge");
 
     let isDragging = false;
     let offsetY;
@@ -139,7 +140,7 @@ const discordPanel = async () => {
 
   const createTokenInput = (/** @type {HTMLElement} */ loadingEl) => {
     const inputEl = document.createElement("input");
-    inputEl.classList.add("tm_input");
+    inputEl.classList.add("lm_input");
     inputEl.placeholder = "token";
 
     inputEl.addEventListener("paste", (event) => {
@@ -158,7 +159,7 @@ const discordPanel = async () => {
       }
 
       inputEl.disabled = true;
-      loadingEl.classList.add("tm_movable_edge_loader");
+      loadingEl.classList.add("lm_movable_edge_loader");
       onSubmit(value);
       highlightElement(inputEl, "success");
     });
@@ -168,7 +169,7 @@ const discordPanel = async () => {
 
   const createCopyTokenButton = () => {
     const buttonEl = document.createElement("button");
-    buttonEl.classList.add("tm_button");
+    buttonEl.classList.add("lm_button");
     buttonEl.innerText = "copy";
     buttonEl.addEventListener("click", () => {
       const value = onCopy();
@@ -185,10 +186,10 @@ const discordPanel = async () => {
 
   const createToggleVisibilityButton = (/** @type {HTMLElement} */ closeEl) => {
     const toggleVisibilityButtonEl = document.createElement("button");
-    toggleVisibilityButtonEl.classList.add("tm_button");
+    toggleVisibilityButtonEl.classList.add("lm_button");
     toggleVisibilityButtonEl.innerText = config.isHidden ? "<" : ">";
     toggleVisibilityButtonEl.addEventListener("click", () => {
-      const isHidden = closeEl.classList.toggle("tm_hidden");
+      const isHidden = closeEl.classList.toggle("lm_hidden");
       toggleVisibilityButtonEl.innerText = isHidden ? "<" : ">";
       config.isHidden = isHidden;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
@@ -198,12 +199,12 @@ const discordPanel = async () => {
   };
 
   const tokenManagerEl = document.createElement("div");
-  tokenManagerEl.id = "token-manager";
+  tokenManagerEl.id = MANAGER_ID;
   tokenManagerEl.style.top = config.topPosition;
 
   const tokenManagerContainerEl = document.createElement("div");
-  tokenManagerContainerEl.classList.add("tm_container");
-  if (config.isHidden) tokenManagerContainerEl.classList.add("tm_hidden");
+  tokenManagerContainerEl.classList.add("lm_container");
+  if (config.isHidden) tokenManagerContainerEl.classList.add("lm_hidden");
 
   const movableEdgeEl = createMovableEdge(tokenManagerEl);
 

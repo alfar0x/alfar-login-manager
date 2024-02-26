@@ -1,4 +1,4 @@
-#token-manager {
+#alfar-lm {
   position: absolute;
   top: 50%;
   right: 0;
@@ -16,14 +16,14 @@
   font-weight: 500;
 }
 
-.tm_movable_edge {
+.lm_movable_edge {
   cursor: grab;
   height: 100%;
   color: #a1a2a4;
   font-weight: 500;
 }
 
-.tm_movable_edge.tm_movable_edge_loader {
+.lm_movable_edge.lm_movable_edge_loader {
   color: #a1a2a400;
   background: linear-gradient(
       90deg,
@@ -37,7 +37,7 @@
   animation: l8 1s infinite steps(4);
 }
 
-.tm_movable_edge:before {
+.lm_movable_edge:before {
   content: "###";
 }
 
@@ -47,7 +47,7 @@
   }
 }
 
-.tm_container {
+.lm_container {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -58,11 +58,11 @@
   align-items: center;
 }
 
-.tm_hidden {
+.lm_hidden {
   width: 0;
 }
 
-.tm_input {
+.lm_input {
   border: 1px solid transparent;
   color: #fff;
   margin: 0 auto;
@@ -76,25 +76,25 @@
   height: 30px;
 }
 
-.tm_input::placeholder {
+.lm_input::placeholder {
   text-transform: uppercase;
   font-weight: 500;
 }
 
-.tm_input:focus {
+.lm_input:focus {
   border-color: #5865f2;
 }
 
-.tm_input:hover:not(:focus):not(:disabled) {
+.lm_input:hover:not(:focus):not(:disabled) {
   border-color: #39429d;
 }
 
-.tm_input:disabled {
+.lm_input:disabled {
   background-color: #25262f;
   color: #a8a8a8;
 }
 
-.tm_button {
+.lm_button {
   border-radius: 7px;
   border: 2px solid #5865f2;
   background-color: #5865f2;
@@ -111,26 +111,26 @@
   height: 38px;
 }
 
-.tm_button:hover {
+.lm_button:hover {
   background-color: #4752c4;
   border-color: #4752c4;
   color: #fff;
 }
 
-.tm_border_success {
+.lm_border_success {
   border-color: #2a9d8f !important;
 }
 
-.tm_border_error {
+.lm_border_error {
   border-color: #e63946 !important;
 }
 
-.tm_contact_box {
+.lm_contact_box {
   display: flex;
   align-items: center;
 }
 
-.tm_contact_box_link {
+.lm_contact_box_link {
   text-decoration: none;
   color: #fff;
 }
