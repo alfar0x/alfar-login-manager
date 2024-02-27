@@ -20,15 +20,15 @@ const twitterPanel = async () => {
     }, 2500);
   };
 
-  const onCopy = async () => {
-    try {
-      // @ts-ignore
-      return (await window.cookieStore.get("auth_token"))?.value || null;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  };
+  // const onCopy = async () => {
+  //   try {
+  //     // @ts-ignore
+  //     return (await window.cookieStore.get("auth_token"))?.value || null;
+  //   } catch (error) {
+  //     console.error(error);
+  //     return null;
+  //   }
+  // };
 
   const onValidate = (/** @type {any} */ token) =>
     token && typeof token === "string";
@@ -161,22 +161,22 @@ const twitterPanel = async () => {
     return inputEl;
   };
 
-  const createCopyTokenButton = () => {
-    const buttonEl = document.createElement("button");
-    buttonEl.classList.add("lm_button");
-    buttonEl.innerText = "copy";
-    buttonEl.addEventListener("click", async () => {
-      const value = await onCopy();
-      if (!onValidate(value)) {
-        console.error(`${value} is not a token`);
-        highlightElement(buttonEl, "error");
-        return;
-      }
-      navigator.clipboard.writeText(value);
-      highlightElement(buttonEl, "success");
-    });
-    return buttonEl;
-  };
+  // const createCopyTokenButton = () => {
+  //   const buttonEl = document.createElement("button");
+  //   buttonEl.classList.add("lm_button");
+  //   buttonEl.innerText = "copy";
+  //   buttonEl.addEventListener("click", async () => {
+  //     const value = await onCopy();
+  //     if (!onValidate(value)) {
+  //       console.error(`${value} is not a token`);
+  //       highlightElement(buttonEl, "error");
+  //       return;
+  //     }
+  //     navigator.clipboard.writeText(value);
+  //     highlightElement(buttonEl, "success");
+  //   });
+  //   return buttonEl;
+  // };
 
   const createToggleVisibilityButton = (/** @type {HTMLElement} */ closeEl) => {
     const toggleVisibilityButtonEl = document.createElement("button");
@@ -203,7 +203,7 @@ const twitterPanel = async () => {
   const movableEdgeEl = createMovableEdge(tokenManagerEl);
 
   tokenManagerContainerEl.appendChild(createTokenInput(movableEdgeEl));
-  tokenManagerContainerEl.appendChild(createCopyTokenButton());
+  // tokenManagerContainerEl.appendChild(createCopyTokenButton());
 
   tokenManagerEl.appendChild(movableEdgeEl);
   tokenManagerEl.appendChild(tokenManagerContainerEl);
